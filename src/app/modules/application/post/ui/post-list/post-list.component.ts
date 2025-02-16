@@ -12,5 +12,11 @@ export class PostListComponent {
   @Input() posts: any[] = [];
 
 
+  public async deletePost(post: any) {
 
+  }
+
+  public async updatePost(post: any) {
+
+  }
 }
