@@ -2,7 +2,7 @@
 <app-ui-header></app-ui-header>
 
   <main class="content flex-grow h-full mt-30 bg-gray-100">
-    <app-ui-create-post></app-ui-create-post>
+    <app-ui-create-post (postCreated)="onPostCreated($event)"></app-ui-create-post>
     <app-ui-post-list [posts]="posts"></app-ui-post-list>
   </main>
 

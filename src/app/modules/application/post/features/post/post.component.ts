@@ -97,4 +97,18 @@ export class PostComponent {
     }
   ];
 
+  constructor() {
+  }
+
+  onPostCreated(postData: { title: string; content: string }) {
+    const newPost = {
+      username: 'Alperen Ergül', // Sabit bir kullanıcı adı örnek olarak
+      createdAt: new Date().toLocaleDateString(),
+      title: postData.title,
+      content: postData.content
+    };
+
+    this.posts.unshift(newPost); // En üstte yeni postu göstermek için
+  }
+
 }
