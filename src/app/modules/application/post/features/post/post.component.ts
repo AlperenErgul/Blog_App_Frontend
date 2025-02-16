@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import {HeaderComponent} from '../../ui/header/header.component';
 import {FooterComponent} from '../../ui/footer/footer.component';
 import {PostListComponent} from '../../ui/post-list/post-list.component';
+import {CreatePostComponent} from '../../ui/create-post/create-post.component';
 
 @Component({
   selector: 'app-post',
   imports: [
     HeaderComponent,
     FooterComponent,
-    PostListComponent
+    PostListComponent,
+    CreatePostComponent
   ],
   templateUrl: './post.component.html',
   standalone: true,
