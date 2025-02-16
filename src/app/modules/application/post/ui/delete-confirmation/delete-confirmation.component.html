@@ -1,0 +1,13 @@
+
+<div class="p-5 flex flex-col">
+  <div>
+    <p class="text-2xl text-gray-800">Are you sure, do you want to delete it ?</p>
+  </div>
+
+  <div class="flex justify-end mt-5">
+    <div>
+      <button (click)="cancel()" class="py-2 px-4 bg-gray-400 rounded-md cursor-pointer"><span class="text-white">Cancel</span></button>
+      <button (click)="confirmDelete()" class="py-2 px-4 bg-red-500 ml-2 rounded-md cursor-pointer"><span class="text-white">Delete</span></button>
+    </div>
+  </div>
+</div>
