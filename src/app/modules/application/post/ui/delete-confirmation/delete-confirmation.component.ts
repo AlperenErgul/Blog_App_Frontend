@@ -1,11 +1,9 @@
 import {Component} from '@angular/core';
-import {MatDialogActions, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ui-delete-confirmation',
-  imports: [
-
-  ],
+  imports: [],
   standalone: true,
   templateUrl: './delete-confirmation.component.html',
   styleUrl: './delete-confirmation.component.css'

@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {DeleteConfirmationComponent} from '../delete-confirmation/delete-confirmation.component';
 import {MatDialog} from '@angular/material/dialog';
+import {UpdatePostDialogComponent} from '../update-post-dialog/update-post-dialog.component';
 
 @Component({
   selector: 'app-ui-post-list',
@@ -29,6 +30,15 @@ export class PostListComponent {
   }
 
   public async updatePost(post: any) {
+    const dialogRef = this.dialog.open(UpdatePostDialogComponent, {
+      data:{
+        title: post.title,
+        content: post.content
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    })
   }
 }
