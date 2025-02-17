@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {DeleteConfirmationComponent} from '../delete-confirmation/delete-confirmation.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdatePostDialogComponent} from '../update-post-dialog/update-post-dialog.component';
+import {PostInterface} from '../../models';
 
 @Component({
   selector: 'app-ui-post-list',
@@ -12,7 +13,7 @@ import {UpdatePostDialogComponent} from '../update-post-dialog/update-post-dialo
 })
 export class PostListComponent {
 
-  @Input() posts: any[] = [];
+  @Input() posts: PostInterface[] = [];
 
   constructor(public dialog: MatDialog) {
   }

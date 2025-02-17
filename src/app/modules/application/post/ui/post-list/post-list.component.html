@@ -3,14 +3,13 @@
   <div class="w-[800px] flex flex-col mb-10 mt-5 px-4">
 
 
-    @for (post of posts; track post.username) {
+    @for (post of posts; track post.id) {
       <div class="w-full max-w-[800px] mx-auto bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-100 mt-3
             px-4 sm:px-6">
 
-        <!-- Üst Bilgi (Kullanıcı ve Tarih) + Silme Butonu -->
         <div class="flex items-center justify-between mb-2">
           <div class="flex flex-col sm:flex-row sm:items-center">
-            <span class="text-md font-medium text-gray-700">{{ post.username }}</span>
+            <span class="text-md font-medium text-gray-700">{{ post.user.name }}</span>
             <span class="text-sm text-gray-500 mt-1 sm:mt-0 sm:ml-2">{{ post.createdAt }}</span>
           </div>
 
