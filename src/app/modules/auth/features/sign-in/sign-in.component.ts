@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../data-acces/services';
 import {LoginModel} from '../../models';
@@ -16,11 +16,13 @@ import {LoginModel} from '../../models';
 })
 export class SignInComponent implements OnInit {
 
-  public signInform!: FormGroup
+  public signInform!: FormGroup;
+  public errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
 
   }
@@ -32,8 +34,20 @@ export class SignInComponent implements OnInit {
     });
   }
 
+  public getEmailControl() {
+    return this.signInform.get('email');
+  }
+
+
+  public getPasswordControl() {
+    return this.signInform.get('password');
+  }
+
   public login() {
+    console.log(this.getEmailControl())
+
     if (this.signInform.invalid) {
+      this.signInform.markAsTouched()
       return;
     }
 
@@ -42,18 +56,22 @@ export class SignInComponent implements OnInit {
       password: this.signInform.value.password
     }
 
-    console.log(payload);
+    this.errorMessage = null;
 
     this.authService.login(payload).subscribe({
       next: (result: boolean) => {
+        this.signInform.reset()
         if (result) {
-          console.log('başarılı')
+          this.router.navigate(['/app/posts'])
+          console.log('başarılı');
         } else {
+          this.errorMessage = 'Email or password is wrong!'
           console.log('başarısız')
         }
       },
       error: (error) => {
         console.error('Login hatası:', error);
+        this.errorMessage = 'An error occurred, please try again';
       }
     })
   }

@@ -1,12 +1,28 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-50">
   <div class="w-full max-w-lg p-10 space-y-8 bg-white rounded-2xl shadow-xl">
     <h2 class="text-4xl font-bold text-center text-gray-900">Sign in</h2>
+    <!-- Hata mesajı gösterme alanı -->
+    @if (errorMessage) {
+      <div class="text-red-500 text-sm text-center">
+        {{ errorMessage }}
+      </div>
+    }
     <form [formGroup]="signInform" (ngSubmit)="login()" class="space-y-5">
       <div>
         <label class="block text-sm font-medium text-gray-700">Email</label>
         <input type="email" formControlName="email"
                class="w-full px-4 py-3 mt-1 border border-gray-400 rounded-xl focus:outline-none focus:ring-1 focus:ring-gray-500"
                placeholder="Enter your email" required/>
+
+        @if (getEmailControl()?.invalid && getEmailControl()?.touched){
+          @if (getEmailControl()?.errors?.['required']){
+            <div class="text-red-600">Email field is required.</div>
+          }
+          @if (getEmailControl()?.errors?.['email']){
+            <div class="text-red-600">Enter a valid email address.</div>
+          }
+        }
+
       </div>
       <div>
         <label class="block text-sm font-medium text-gray-700">Password</label>
@@ -14,12 +30,27 @@
           <input type="password" formControlName="password"
                  class="w-full px-4 py-3 border border-gray-400 rounded-xl focus:outline-none focus:ring-1 focus:ring-gray-500"
                  placeholder="Enter your password" required/>
+
+
+          @if (getPasswordControl()?.invalid && getPasswordControl()?.touched){
+            @if (getPasswordControl()?.errors?.['required']){
+              <div class="text-red-600">Password field is required.</div>
+            }
+            @if (getPasswordControl()?.errors?.['minlength']){
+              <div class="text-red-600">The password must be at least 6 characters.</div>
+            }
+            @if (getPasswordControl()?.errors?.['maxlength']){
+              <div class="text-red-600">The password can be up to 50 characters.</div>
+            }
+          }
+
         </div>
       </div>
       <div class="flex justify-between text-sm">
         <a routerLink="/sign-up" class="text-blue-500 hover:underline">Do you want sign up?</a>
       </div>
-      <button type="submit" [disabled]="signInform.invalid" class="w-full px-4 py-3 text-white cursor-pointer bg-blue-600 rounded-xl hover:bg-blue-700">Sign in
+      <button type="submit" [disabled]="signInform.invalid"
+              class="w-full px-4 py-3 text-white cursor-pointer bg-blue-600 rounded-xl hover:bg-blue-700">Sign in
       </button>
     </form>
   </div>
