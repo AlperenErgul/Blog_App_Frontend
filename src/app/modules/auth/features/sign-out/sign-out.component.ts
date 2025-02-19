@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {AuthService} from '../../data-acces/services';
 
 @Component({
   selector: 'app-sign-out',
@@ -8,13 +9,14 @@ import {Router} from '@angular/router';
   standalone: true,
   styleUrl: './sign-out.component.css'
 })
-export class SignOutComponent implements OnInit{
+export class SignOutComponent implements OnInit {
 
   countdown: number = 3;
   countdownInterval: any;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
   }
 
@@ -28,6 +30,7 @@ export class SignOutComponent implements OnInit{
         this.countdown--;
         document.getElementById('countdown')!.innerText = this.countdown.toString();
       } else {
+        this.authService.logout();
         clearInterval(this.countdownInterval);
         this.router.navigate(['/sign-in']);
       }
