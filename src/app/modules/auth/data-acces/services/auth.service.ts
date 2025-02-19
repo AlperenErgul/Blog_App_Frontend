@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, catchError, map, Observable, of, tap} from 'rxjs';
-import {LoginModel, LoginResponseModel} from '../../models';
+import {BehaviorSubject, catchError, map, Observable, of} from 'rxjs';
+import {LoginModel, LoginResponseModel, RegisterModel} from '../../models';
 import {AuthHttpService} from './auth-http.service';
 
 @Injectable({
@@ -38,7 +38,20 @@ export class AuthService {
     );
   }
 
-
+  public register(payload: RegisterModel): Observable<boolean> {
+    return this.authHttpService.register(payload).pipe(
+      map((isRegistered: boolean) => {
+        if (isRegistered) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      catchError((error) => {
+        return of(false);
+      })
+    );
+  }
 
 
 

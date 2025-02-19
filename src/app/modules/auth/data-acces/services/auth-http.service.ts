@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {LoginModel, LoginResponseModel, RegisterModel} from '../../models';
 import {environment} from '../../../../../environments/environment';
-import {map, Observable, tap} from 'rxjs';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,9 @@ export class AuthHttpService {
     return this._http.post<LoginResponseModel>(URL, payload);
   }
 
-  public async register(payload: RegisterModel) {
-
+  public register(payload: RegisterModel): Observable<boolean> {
+    const URL = `${this.apiUrl}/auth/register`;
+    return this._http.post<boolean>(URL, payload);
   }
 
 }
