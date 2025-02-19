@@ -5,8 +5,8 @@ export const routes: Routes = [
 
   {
     path: '',
-    canActivate: [NoAuthGuard], // todo: NoAuthGuard will add here
-    canActivateChild: [NoAuthGuard], // todo: NoAuthGuard will add here
+    canActivate: [NoAuthGuard],
+    canActivateChild: [NoAuthGuard],
     children: [
       {
         path: 'sign-in',
@@ -20,8 +20,8 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [AuthGuard], // todo: AuthGuard will add here
-    canActivateChild: [AuthGuard], // todo: AuthGuard will add here
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'sign-out',
@@ -32,8 +32,8 @@ export const routes: Routes = [
 
   {
     path: 'app',
-    canActivate: [AuthGuard], // todo: AuthGuard will add here
-    canActivateChild: [AuthGuard], // todo: AuthGuard will add here
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
