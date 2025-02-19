@@ -1,11 +1,12 @@
 import {Routes} from '@angular/router';
+import {AuthGuard, NoAuthGuard} from './core/guards';
 
 export const routes: Routes = [
 
   {
     path: '',
-    canActivate: [], // todo: NoAuthGuard will add here
-    canActivateChild: [], // todo: NoAuthGuard will add here
+    canActivate: [NoAuthGuard], // todo: NoAuthGuard will add here
+    canActivateChild: [NoAuthGuard], // todo: NoAuthGuard will add here
     children: [
       {
         path: 'sign-in',
@@ -19,8 +20,8 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [], // todo: AuthGuard will add here
-    canActivateChild: [], // todo: AuthGuard will add here
+    canActivate: [AuthGuard], // todo: AuthGuard will add here
+    canActivateChild: [AuthGuard], // todo: AuthGuard will add here
     children: [
       {
         path: 'sign-out',
@@ -31,8 +32,8 @@ export const routes: Routes = [
 
   {
     path: 'app',
-    canActivate: [], // todo: AuthGuard will add here
-    canActivateChild: [], // todo: AuthGuard will add here
+    canActivate: [AuthGuard], // todo: AuthGuard will add here
+    canActivateChild: [AuthGuard], // todo: AuthGuard will add here
     children: [
       {
         path: '',
