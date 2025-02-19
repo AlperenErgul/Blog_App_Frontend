@@ -63,14 +63,11 @@ export class SignInComponent implements OnInit {
         this.signInform.reset()
         if (result) {
           this.router.navigate(['/app/posts'])
-          console.log('başarılı');
         } else {
           this.errorMessage = 'Email or password is wrong!'
-          console.log('başarısız')
         }
       },
       error: (error) => {
-        console.error('Login hatası:', error);
         this.errorMessage = 'An error occurred, please try again';
       }
     })
