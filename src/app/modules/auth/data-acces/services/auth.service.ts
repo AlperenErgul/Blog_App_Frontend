@@ -1,20 +1,68 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, catchError, map, Observable, of} from 'rxjs';
+import {Injectable, OnDestroy} from '@angular/core';
+import {BehaviorSubject, catchError, interval, map, Observable, of, Subscription, switchMap} from 'rxjs';
 import {LoginModel, LoginResponseModel, RegisterModel} from '../../models';
 import {AuthHttpService} from './auth-http.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
 
   private readonly tokenKey = 'accessToken';
   private readonly userKey = 'user'
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
+  private sessionCheckInterval!: Subscription;
 
   constructor(
-    private authHttpService: AuthHttpService
+    private authHttpService: AuthHttpService,
+    private router: Router
   ) {
+    this.startSessionCheck();
+  }
+
+  private startSessionCheck() {
+    this.sessionCheckInterval = interval(30000).pipe(
+      switchMap(() => this.checkSession()),
+      catchError(() => {
+        this.logout();
+        this.router.navigate(['/sign-out']);
+        return of(false);
+      })
+    ).subscribe((isValid) => {
+      if (!isValid) {
+        this.handleInvalidSession();
+      }
+    });
+  }
+
+  private handleInvalidSession() {
+    const currentUrl = this.router.url;
+
+    const authPages = ['/sign-in', '/sign-up'];
+    const isOnAuthPage = authPages.includes(currentUrl);
+
+    if (!isOnAuthPage) {
+      this.logout();
+      this.router.navigate(['/sign-in']);
+    }
+  }
+
+  private checkSession() {
+    return this.authHttpService.checkSession().pipe(
+      map((isValid: boolean) => {
+        return isValid;
+      }),
+      catchError(() => {
+        return of(false);
+      })
+    )
+  }
+
+  ngOnDestroy(): void {
+    if (this.sessionCheckInterval) {
+      this.sessionCheckInterval.unsubscribe();
+    }
   }
 
   public login(payload: LoginModel): Observable<boolean> {
@@ -52,7 +100,6 @@ export class AuthService {
       })
     );
   }
-
 
 
   private saveUser(user: { id: string, name: string, email: string }) {

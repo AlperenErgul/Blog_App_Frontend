@@ -27,4 +27,9 @@ export class AuthHttpService {
     return this._http.post<boolean>(URL, payload);
   }
 
+  checkSession(): Observable<boolean> {
+    const URL = `${this.apiUrl}/auth/session`;
+    return this._http.get<boolean>(URL);
+  }
+
 }
