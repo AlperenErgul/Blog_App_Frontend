@@ -28,12 +28,12 @@ export class AuthService {
           return !!(loggedInUserData && loggedInUserData["access-token"]);
         } else {
           console.error('Yanıt yapısı hatalı:', loggedInUserData);
-          return false;  // Failure
+          return false;
         }
       }),
       catchError(error => {
         console.error('Login error:', error);
-        return of(false);  // Return false in case of error
+        return of(false);
       })
     );
   }
