@@ -5,6 +5,7 @@ import {PostListComponent} from '../../ui/post-list/post-list.component';
 import {CreatePostComponent} from '../../ui/create-post/create-post.component';
 import {CreatePostModel, CreatePostResponseModel, PostInterface} from '../../models';
 import {PostService} from '../../data-acces/post.service';
+import {AuthService} from '../../../../auth/data-acces/services';
 
 @Component({
   selector: 'app-post',
@@ -21,6 +22,7 @@ import {PostService} from '../../data-acces/post.service';
 export class PostComponent implements OnInit {
 
   posts: PostInterface[] = [];
+
 
   constructor(
     private postService: PostService

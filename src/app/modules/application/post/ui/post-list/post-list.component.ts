@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DeleteConfirmationComponent} from '../delete-confirmation/delete-confirmation.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdatePostDialogComponent} from '../update-post-dialog/update-post-dialog.component';
 import {PostInterface} from '../../models';
+import {AuthService} from '../../../../auth/data-acces/services';
 
 @Component({
   selector: 'app-ui-post-list',
@@ -11,11 +12,20 @@ import {PostInterface} from '../../models';
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
-export class PostListComponent {
+export class PostListComponent implements OnInit {
 
   @Input() posts: PostInterface[] = [];
+  public userId: string | undefined = '';
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    private authService: AuthService
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.userId = this.authService.getUser()?.id;
+    console.log(this.userId);
   }
 
   public async deletePost(postTitle: any) {
@@ -32,7 +42,7 @@ export class PostListComponent {
 
   public async updatePost(post: any) {
     const dialogRef = this.dialog.open(UpdatePostDialogComponent, {
-      data:{
+      data: {
         title: post.title,
         content: post.content
       }
@@ -42,4 +52,6 @@ export class PostListComponent {
       console.log(result);
     })
   }
+
+
 }
