@@ -30,7 +30,7 @@ export class PostHttpService {
   }
 
   findAll(page: number, limit: number, search?: string): Observable<PostInterface[]> {
-    const URL = `${this.apiUrl}/posts`;
+    const URL = `${this.apiUrl}/post`;
 
     let params = new HttpParams()
       .set('page', page.toString())
@@ -40,7 +40,7 @@ export class PostHttpService {
       params = params.set('search', search);
     }
 
-    return this._http.get<findAllPostApiResponse>(this.apiUrl, {params}).pipe(
+    return this._http.get<findAllPostApiResponse>(URL, {params}).pipe(
       map(response => response.data)
     )
 
@@ -51,8 +51,8 @@ export class PostHttpService {
     return this._http.post<CreatePostResponseModel>(URL, payload);
   }
 
-  update(payload: UpdatePostModel): Observable<UpdatePostResponseModel> {
-    const URL = `${this.apiUrl}/post`;
+  update(payload: UpdatePostModel, postId: string): Observable<UpdatePostResponseModel> {
+    const URL = `${this.apiUrl}/post${postId}`;
     return this._http.patch<UpdatePostResponseModel>(URL, payload);
   }
 
