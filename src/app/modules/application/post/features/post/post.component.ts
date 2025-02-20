@@ -5,7 +5,6 @@ import {PostListComponent} from '../../ui/post-list/post-list.component';
 import {CreatePostComponent} from '../../ui/create-post/create-post.component';
 import {CreatePostModel, CreatePostResponseModel, PostInterface} from '../../models';
 import {PostService} from '../../data-acces/post.service';
-import {AuthService} from '../../../../auth/data-acces/services';
 
 @Component({
   selector: 'app-post',
@@ -52,6 +51,19 @@ export class PostComponent implements OnInit {
       error: (error) => {
         console.log('Something went wrong!')
 
+      }
+    })
+  }
+
+  deletePost(id: string) {
+    this.postService.delete(id).subscribe({
+      next: (result: boolean) => {
+        if (result) {
+          this.loadPosts();
+        }
+      },
+      error: (error) => {
+        console.log('Something went wrong!')
       }
     })
   }

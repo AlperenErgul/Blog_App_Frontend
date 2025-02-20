@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DeleteConfirmationComponent} from '../delete-confirmation/delete-confirmation.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdatePostDialogComponent} from '../update-post-dialog/update-post-dialog.component';
@@ -17,6 +17,8 @@ export class PostListComponent implements OnInit {
   @Input() posts: PostInterface[] = [];
   public userId: string | undefined = '';
 
+  @Output() postDeleted = new EventEmitter<string>()
+
   constructor(
     public dialog: MatDialog,
     private authService: AuthService
@@ -25,17 +27,15 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.authService.getUser()?.id;
-    console.log(this.userId);
   }
 
-  public async deletePost(postTitle: any) {
+  public async deletePost(postId: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if (result) {
-        console.log(`Post ${postTitle} deleted!`);
-        // Burada silme işlemini gerçekleştir
+        this.postDeleted.emit(postId);
       }
     });
   }
