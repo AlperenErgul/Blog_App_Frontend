@@ -4,10 +4,13 @@ import {MatDialog} from '@angular/material/dialog';
 import {UpdatePostDialogComponent} from '../update-post-dialog/update-post-dialog.component';
 import {PostInterface, UpdatePostDialogModel, UpdatePostModel} from '../../models';
 import {AuthService} from '../../../../auth/data-acces/services';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-ui-post-list',
-  imports: [],
+  imports: [
+    DatePipe
+  ],
   standalone: true,
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
