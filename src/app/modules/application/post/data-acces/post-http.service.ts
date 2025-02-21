@@ -52,7 +52,7 @@ export class PostHttpService {
   }
 
   update(payload: UpdatePostModel, postId: string): Observable<UpdatePostResponseModel> {
-    const URL = `${this.apiUrl}/post${postId}`;
+    const URL = `${this.apiUrl}/post/${postId}`;
     return this._http.patch<UpdatePostResponseModel>(URL, payload);
   }
 

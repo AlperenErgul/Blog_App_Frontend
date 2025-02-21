@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DeleteConfirmationComponent} from '../delete-confirmation/delete-confirmation.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdatePostDialogComponent} from '../update-post-dialog/update-post-dialog.component';
-import {PostInterface} from '../../models';
+import {PostInterface, UpdatePostDialogModel, UpdatePostModel} from '../../models';
 import {AuthService} from '../../../../auth/data-acces/services';
 
 @Component({
@@ -18,6 +18,7 @@ export class PostListComponent implements OnInit {
   public userId: string | undefined = '';
 
   @Output() postDeleted = new EventEmitter<string>()
+  @Output() postUpdated = new EventEmitter<UpdatePostDialogModel>();
 
   constructor(
     public dialog: MatDialog,
@@ -33,7 +34,6 @@ export class PostListComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.postDeleted.emit(postId);
       }
@@ -48,8 +48,13 @@ export class PostListComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+    dialogRef.afterClosed().subscribe((result: UpdatePostModel) => {
+      const payload: UpdatePostDialogModel = {
+        id: post.id,
+        title: result.title,
+        content: result.content
+      }
+      this.postUpdated.emit(payload);
     })
   }
 

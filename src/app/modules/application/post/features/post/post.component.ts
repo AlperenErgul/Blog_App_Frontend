@@ -3,7 +3,14 @@ import {HeaderComponent} from '../../ui/header/header.component';
 import {FooterComponent} from '../../ui/footer/footer.component';
 import {PostListComponent} from '../../ui/post-list/post-list.component';
 import {CreatePostComponent} from '../../ui/create-post/create-post.component';
-import {CreatePostModel, CreatePostResponseModel, PostInterface} from '../../models';
+import {
+  CreatePostModel,
+  CreatePostResponseModel,
+  PostInterface,
+  UpdatePostDialogModel,
+  UpdatePostModel,
+  UpdatePostResponseModel
+} from '../../models';
 import {PostService} from '../../data-acces/post.service';
 
 @Component({
@@ -63,10 +70,27 @@ export class PostComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log('Something went wrong!')
+        console.log('Something went wrong!');
       }
     })
   }
 
 
+  updatePost($event: UpdatePostDialogModel) {
+    const payload: UpdatePostModel = {
+      title: $event.title,
+      content: $event.content
+    }
+
+    this.postService.update($event.id, payload).subscribe({
+      next: (result: UpdatePostResponseModel) => {
+        this.loadPosts();
+      },
+      error: (error) => {
+        console.log('Something went wrong!');
+      }
+    })
+
+
+  }
 }

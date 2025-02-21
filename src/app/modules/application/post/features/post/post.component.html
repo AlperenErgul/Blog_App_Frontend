@@ -3,7 +3,7 @@
 
   <main class="content flex-grow h-full mt-30 bg-gray-100">
     <app-ui-create-post (postCreated)="onPostCreated($event)"></app-ui-create-post>
-    <app-ui-post-list (postDeleted)="deletePost($event)"  [posts]="posts"></app-ui-post-list>
+    <app-ui-post-list (postUpdated)="updatePost($event)" (postDeleted)="deletePost($event)"  [posts]="posts"></app-ui-post-list>
   </main>
 
 <app-ui-footer></app-ui-footer>

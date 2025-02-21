@@ -57,6 +57,12 @@ export interface UpdatePostModel {
   content?: string;
 }
 
+export interface UpdatePostDialogModel {
+  title?: string,
+  content?: string,
+  id: string
+}
+
 export interface UpdatePostResponseModel {
   id: string;
   title: string;

@@ -1,6 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {UpdatePostModel} from '../../models';
 
 @Component({
   selector: 'app-ui-update-post-dialog',
@@ -21,10 +22,14 @@ export class UpdatePostDialogComponent {
   }
 
   public updatePost(): void {
-    this.dialogRef.close({
+    if (!this.data.title.trim() || !this.data.content.trim()) return;
+
+    const payload: UpdatePostModel = {
       title: this.data.title,
       content: this.data.content
-    });
+    }
+
+    this.dialogRef.close(payload);
   }
 
   public cancel(): void {
