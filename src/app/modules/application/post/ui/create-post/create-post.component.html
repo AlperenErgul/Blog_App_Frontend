@@ -5,14 +5,17 @@
     <div class="w-full max-w-[800px] mx-auto bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-100 mt-3">
 
       <div class="flex items-center space-x-3 mb-4">
-        <span class="text-xl font-semibold text-gray-700">Alperen Ergül</span>
+        <span class="text-xl font-semibold text-gray-700">{{ userName }}</span>
       </div>
 
-      <input type="text" [(ngModel)]="title" placeholder="Title" class="w-full p-2 text-lg font-semibold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <textarea [(ngModel)]="content" placeholder="What's on your mind?" class="w-full p-2 mt-3 text-gray-600 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      <input type="text" [(ngModel)]="title" placeholder="Title"
+             class="w-full p-2 text-lg font-semibold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <textarea [(ngModel)]="content" placeholder="What's on your mind?"
+                class="w-full p-2 mt-3 text-gray-600 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
 
       <div class="flex justify-end mt-3">
-        <button (click)="createPost()" class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition cursor-pointer">
+        <button (click)="createPost()"
+                class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition cursor-pointer">
           Share Post
         </button>
       </div>
