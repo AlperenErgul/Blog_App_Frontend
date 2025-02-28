@@ -2,7 +2,11 @@ import {Routes} from '@angular/router';
 import {AuthGuard, NoAuthGuard} from './core/guards';
 
 export const routes: Routes = [
-
+  {
+    path: '',
+    redirectTo: 'sign-in', // Ana dizine gidildiğinde '/sign-in' sayfasına yönlendirme
+    pathMatch: 'full'
+  },
   {
     path: '',
     canActivate: [NoAuthGuard],
