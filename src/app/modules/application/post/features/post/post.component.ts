@@ -40,7 +40,7 @@ export class PostComponent implements OnInit {
   }
 
   loadPosts() {
-    this.postService.findAll(1, 10, '').subscribe({
+    this.postService.findAll(1, 100, '').subscribe({
       next: (result: PostInterface[]) => {
         this.posts = result;
       },
