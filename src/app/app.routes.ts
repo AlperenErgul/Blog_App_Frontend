@@ -42,6 +42,10 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: async () => (await import('./modules/application/post/routes')).POST_ROUTES
+      },
+      {
+        path: 'profile',
+        loadChildren: async () => (await import('./modules/application/profile/routes')).PROFILE_ROUTES
       }
     ]
   },
